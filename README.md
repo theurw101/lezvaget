@@ -1,24 +1,46 @@
-# README
+# Lezvaget (Լեզվագետ)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A web app for Eastern Armenian language tooling — starting with spellchecking, with a
+verb conjugator planned next.
 
-Things you may want to cover:
+## Status
 
-* Ruby version
+Early scaffold. Currently working:
 
-* System dependencies
+- Rails app with PostgreSQL
+- `SpellChecker` service wrapping Hunspell via `ffi-hunspell`, using the vendored
+  `hy_AM` (Eastern Armenian) dictionary
 
-* Configuration
+Not yet built: web UI, conjugation engine, custom-word extension table.
 
-* Database creation
+## Built with
 
-* Database initialization
+- Ruby on Rails
+- PostgreSQL
+- [ffi-hunspell](https://github.com/postmodern/ffi-hunspell) for spellchecking
+- RSpec for testing
 
-* How to run the test suite
+## Dictionary
 
-* Services (job queues, cache servers, search engines, etc.)
+The Hunspell dictionary (`lib/dictionaries/hy_AM/`) is vendored from
+[martakert/hyspell](https://github.com/martakert/hyspell) (CC0-1.0). See
+`lib/dictionaries/hy_AM/SOURCE.md` for pull date and details.
 
-* Deployment instructions
+## Setup
 
-* ...
+```bash
+bundle install
+bin/rails db:create db:migrate
+bin/rails console
+```
+
+```ruby
+SpellChecker.new.check("տուն")  # => true
+```
+
+## TODO
+
+- [ ] Web UI for pasting text and highlighting misspelled words
+- [ ] `CustomWord` model for user-added proper nouns/names
+- [ ] `ArmenianConjugator` service for generating verb paradigms
+- [ ] Public deployment
