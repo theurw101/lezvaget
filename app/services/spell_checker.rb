@@ -8,4 +8,10 @@ class SpellChecker
   def check(word)
     @dict.check?(word)
   end
+
+  def check_text(text)
+    text.split(/\s+/).map do |word|
+      { word: word, valid: check(word) }
+    end
+  end
 end

@@ -36,6 +36,8 @@ bin/rails console
 
 ```ruby
 SpellChecker.new.check("տուն")  # => true
+SpellChecker.new.check_text("Բարև ինչպես ես") 
+# => [{word: "Բարև", valid: true}, {word: "ինչպես", valid: true}, {word: "ես", valid: true}]
 ```
 
 ## TODO
