@@ -1,0 +1,2 @@
+class CustomWord < ApplicationRecord
+end
