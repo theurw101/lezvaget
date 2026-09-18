@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1
+# Development image only. For production, use the root Dockerfile.
+# Not optimized for size or security hardening — just for local setup and iteration.
+
+ARG RUBY_VERSION=3.4.10
+FROM docker.io/library/ruby:${RUBY_VERSION}-slim
+
+WORKDIR /rails
+
+# Build tools + libraries needed to compile native gem extensions,
+# plus postgres client libs and dev conveniences.
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      build-essential curl git libjemalloc2 libpq-dev libvips libyaml-dev \
+      pkg-config postgresql-client && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Keep bundler's installed gems inside the repo (bind-mounted), so `bundle install`
+# only needs to run once and survives container rebuilds.
+ENV BUNDLE_PATH="/rails/vendor/bundle" \
+    RAILS_ENV="development"
+
+CMD ["bash"]

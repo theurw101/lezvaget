@@ -26,9 +26,15 @@ The Hunspell dictionary (`lib/dictionaries/hy_AM/`) is vendored from
 [martakert/hyspell](https://github.com/martakert/hyspell) (CC0-1.0). See
 `lib/dictionaries/hy_AM/SOURCE.md` for pull date and details.
 
+## Dependencies
+
+Docker
+
 ## Setup
 
 ```bash
+docker compose run --rm -- web bash
+# inside container:
 bundle install
 bin/rails db:create db:migrate
 bin/rails console
