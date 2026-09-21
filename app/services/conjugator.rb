@@ -40,12 +40,12 @@ class Conjugator
 
   private
 
-# function to remove the verbs suffix, but error if the suffix isn't there
+  # function to remove the verbs suffix, but error if the suffix isn't there
   def strip_ending(word, ending)
     unless word.end_with?(ending)
       raise ArgumentError, "#{word.inspect} does not end with #{ending.inspect}"
     end
-# everything except for length of ending
+    # everything except for length of ending
     word[0...-ending.length]
   end
 end
