@@ -40,15 +40,29 @@ bin/rails db:create db:migrate
 bin/rails console
 ```
 
+## Spellchecker
+
 ```ruby
 SpellChecker.new.check("տուն")  # => true
 SpellChecker.new.check_text("Բարև ինչպես ես") 
 # => [{word: "Բարև", valid: true}, {word: "ինչպես", valid: true}, {word: "ես", valid: true}]
 ```
 
+## Conjugator
+```ruby
+# seed some lemmas
+Lemma.create!(word: "գրել", part_of_speech: "verb", conjugation_class: "e_conjugation")
+Lemma.create!(word: "խաղալ", part_of_speech: "verb", conjugation_class: "a_conjugation")
+# conjugate verbs
+Conjugator.new.present_tense(Lemma.find_by(word: "գրել"))
+Conjugator.new.present_tense(Lemma.find_by(word: "խաղալ"))
+```
+
 ## TODO
 
 - [ ] Web UI for pasting text and highlighting misspelled words
 - [ ] `CustomWord` model for user-added proper nouns/names
-- [ ] `ArmenianConjugator` service for generating verb paradigms
+- [X] `Conjugator` service for generating verb paradigms
+- [ ] Rule-based guessing for regular verbs (`def guess_class(word)`), 
+      database only for exceptions, should work without saying what the conjugation_class is
 - [ ] Public deployment
