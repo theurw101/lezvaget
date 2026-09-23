@@ -33,7 +33,7 @@ Docker
 ## Setup
 
 ```bash
-docker compose run --rm -- web bash
+docker compose run --rm -- web
 # inside container:
 bundle install
 bin/rails db:create db:migrate
